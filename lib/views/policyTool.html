@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://code.jquery.com/jquery.min.js"></script>
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" />
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap.js"></script>
+<script src="http://cloud.github.com/downloads/SteveSanderson/knockout/knockout-2.1.0.js"></script>
+<script type='text/javascript' src="https://raw.github.com/jamesfoster/knockout.observableDictionary/master/ko.observableDictionary.js"></script>
+<meta charset=utf-8 />
+<title>Helmet Content Security Policy Tool</title>
+</head>
+<body>
+  <div class="container">
+    <div class="page-header">
+      <h1>Helmet <small>Content Security Policy Tool</small><a href="https://dvcs.w3.org/hg/content-security-policy/raw-file/tip/csp-specification.dev.html#default-src" class="pull-right">CSP 1.1</a></h1>
+    </div>
+    
+    <div>
+      <select data-bind="options: directives, value: selectedDirective"></select> 
+      <a class="btn btn-success" href="#" data-bind="click: addNewDirective"><i class="icon-plus icon-white"></i> Add Directive</a>
+    </div>
+    <!-- ko foreach: policy.items -->
+    <div>
+      <h4 data-bind="text: key"></h4>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <td>source</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- ko foreach: value -->
+          <tr>
+            <td data-bind="text: $data"></td>
+            <td><a class="btn btn-danger" href="#" data-bind="click: $root.removeSource, attr: {name: $parent.key}"><i class="icon-remove-sign icon-white"></i> Delete</a></td>
+          </tr>
+          <!-- /ko -->
+          <tr>
+            <td><input data-bind="value: $root[key()]"></td>
+            <td><a class="btn btn-success" href="#" data-bind="click: $root.addSource, attr: {id: key}"><i class="icon-plus icon-white"></i> Add</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- /ko -->
+    
+    <div class="row">
+      <div class="span1">report-uri</div>
+      <div class="span2"/>
+      <div class="span4"><input data-bind="value: reporturi"></div>
+    </div>
+
+  </div>
+</body>
+</html>
+  

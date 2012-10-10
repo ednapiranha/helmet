@@ -1,0 +1,58 @@
+!!! 5
+html
+  head
+    script(src='http://code.jquery.com/jquery.min.js')
+    link(href='http://twitter.github.com/bootstrap/assets/css/bootstrap.css', rel='stylesheet', type='text/css')
+    link(href='http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css', rel='stylesheet', type='text/css')
+    script(src='http://twitter.github.com/bootstrap/assets/js/bootstrap.js')
+    script(src='http://cloud.github.com/downloads/SteveSanderson/knockout/knockout-2.1.0.js')
+    script(src='https://raw.github.com/SteveSanderson/knockout.mapping/master/build/output/knockout.mapping-latest.js')
+    script(type='text/javascript', src='https://raw.github.com/jamesfoster/knockout.observableDictionary/master/ko.observableDictionary.js')
+    meta(charset='utf-8')
+    title Helmet Content Security Policy Tool
+  body
+    .container
+      .page-header
+        h1
+          | Helmet
+          small Content Security Policy Tool
+          a.pull-right(href='https://dvcs.w3.org/hg/content-security-policy/raw-file/tip/csp-specification.dev.html#default-src') CSP 1.1
+      div
+        select(data-bind='options: directives, value: selectedDirective')
+        a.btn.btn-success(href='#', data-bind='click: addNewDirective')
+          i.icon-plus.icon-white
+          | Add Directive
+      // ko foreach: policy.items
+      div
+        h4(data-bind='text: key')
+        table.table.table-striped.table-bordered
+          thead
+            tr
+              td source
+              td
+          tbody
+            // ko foreach: value
+            tr
+              td(data-bind='text: $data')
+              td
+                a.btn.btn-danger(href='#', data-bind='click: $root.removeSource, attr: {name: $parent.key}')
+                  i.icon-remove-sign.icon-white
+                  | Delete
+            // /ko
+            tr
+              td
+                input(data-bind='value: $root[key()]')
+              td
+                a.btn.btn-success(href='#', data-bind='click: $root.addSource, attr: {id: key}')
+                  i.icon-plus.icon-white
+                  | Add
+      // /ko
+      .row
+        .span1 report-uri
+        .span2
+        .span4
+          input(data-bind='value: $root["report-uri"]')
+      .row.pull-right
+        button.btn(data-bind="click: $root.save") save
+        
+    script(src='/helmet/js/helmet.js')   
